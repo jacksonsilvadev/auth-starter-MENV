@@ -14,7 +14,7 @@ mongoose.connect(config.db, {
 });
 
 mongoose.Promise = global.Promise
-app.get('*', express.static(path.join(__dirname, '/client/dist')));
+
 let db = mongoose.connection
 db.on('error', console.log.bind(console, 'MongoDB Connection error :'))
 app.use(bodyParser.json());
@@ -30,7 +30,7 @@ passport.use(passportMiddleware);
 
 var routes = require('./routes.js');
 app.use('/api', routes);
-
+app.use(express.static(path.join(__dirname, '../client/dist')));
 
 app.listen(port, () => {
     console.log('Server run ' + port)
