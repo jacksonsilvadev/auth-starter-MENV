@@ -3,10 +3,10 @@ var bodyParser = require('body-parser');
 var passport = require('passport');
 var path = require('path')
 var mongoose = require('mongoose');
-var config = require('./config/config');
-var serveStatic = require('serve-static');
+var config = require('./src/config/config');
 var port = process.env.PORT || 5000;
 var cors = require('cors');
+var serveStatic = require('serve-static')
 var app = express();
 mongoose.connect(config.db, {
     useNewUrlParser: true,
@@ -23,14 +23,21 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(cors());
 app.use(passport.initialize());
-var passportMiddleware = require('./middleware/passport');
+var passportMiddleware = require('./src/middleware/passport');
 passport.use(passportMiddleware);
 
 
 
-var routes = require('./routes.js');
+var routes = require('./src/routes.js');
 app.use('/api', routes);
-app.use(express.static(path.join(__dirname, '../client/dist')));
+app.use("/", serveStatic(path.join(__dirname, '/client/dist')));
+
+
+
+app.get('*', function (request, response, next) {
+
+    response.sendFile(__dirname + '/client/dist/index.html');
+});
 
 app.listen(port, () => {
     console.log('Server run ' + port)

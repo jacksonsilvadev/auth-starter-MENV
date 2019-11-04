@@ -85,9 +85,8 @@ $ nano src/utils/request.js
 })
 
 7- Now go to /client again and run
-*if go to production you need to use **npm run build***
 ```sh
-$ npm run serve
+$ npm run build
 ```
 
 8- Go to project home folder and run to start node server
