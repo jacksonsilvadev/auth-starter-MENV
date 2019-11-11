@@ -1,7 +1,7 @@
 <template>
   <div class="login-wrap">
     <h2>Signup Page</h2>
-    <form @submit.prevent="register" class="form">
+    <form @submit.prevent="signup" class="form">
       <div>
         <input type="text" placeholder="Name" v-model="name" />
       </div>
@@ -40,7 +40,7 @@ export default {
       };
 
       this.$store
-        .dispatch("signup", info)
+        .dispatch("user/register", info)
         .then(() => this.$router.push("/login"));
     }
   }
